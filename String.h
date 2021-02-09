@@ -7,13 +7,17 @@ class String
 public:
     char* element;
     int string_size;
-    String ();
-    String (const String &object);
-    int Size (char* object);
-    explicit String (char* object);
-    ~String();
-    operator= (String &object);
-    bool operator== (String &object);
+    String(); //1
+    String(const String& object); //2
+    int Size(char* object); //7
+    explicit String(char* object); //3
+    ~String(); //4
+    String operator= (String& object); //5
+    bool operator== (String& object); //6
+    int Find(String& object); //8
+    bool Find_help(String& object, int& h, int& time);
+    char operator[] (int& index); //10
+    String operator+(String& object);
 };
 
 
