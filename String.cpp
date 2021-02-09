@@ -150,13 +150,13 @@ std::istream& operator>>(std::ifstream& input, String& object) //12
     return input;
 }
 
-String String::Change(char& letter)
+String String::Change(char& letter, char& needed_letter)
 {
     for (int h = 0; h < string_size; h++)
     {
         if (element[h] == letter)
         {
-            element[h] = letter;
+            element[h] = needed_letter;
         }
     }
     return *this;
