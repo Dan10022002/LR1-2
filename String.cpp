@@ -116,12 +116,48 @@ char String::operator[] (int& index) //10
     return element[index];
 }
 
-String String::operator+(String& object)
+String String::operator+(String& object) //11
 {
     for (int h = 0; h < object.string_size; h++)
     {
         element[string_size + h] = object.element[h];
     }
     string_size += object.string_size;
+    return *this;
+}
+
+std::ostream& operator<<(std::ofstream& output, String& object) //12
+{
+    for (int h = 0; h < object.string_size; h++)
+    {
+        output << object.element[h];
+    }
+    return output;
+}
+
+std::istream& operator>>(std::ifstream& input, String& object) //12
+{
+    char* time = new char[256];
+    input >> time;
+    String rezult;
+    rezult.element = time;
+    int string_size_time = 0;
+    while (object[string_size_time] != '\0')
+    {
+        string_size_time += 1;
+    }
+    rezult.string_size = string_size_time;
+    return input;
+}
+
+String String::Change(char& letter)
+{
+    for (int h = 0; h < string_size; h++)
+    {
+        if (element[h] == letter)
+        {
+            element[h] = letter;
+        }
+    }
     return *this;
 }
