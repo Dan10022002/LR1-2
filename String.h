@@ -7,7 +7,6 @@ class String
     char* element;
     int string_size;
 public:
-    
     String(); //1
     String(const String& object); //2
     int Size(char* object); //7
