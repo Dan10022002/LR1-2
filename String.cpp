@@ -118,12 +118,19 @@ char String::operator[] (int& index) //10
 
 String String::operator+(String& object) //11
 {
-    for (int h = 0; h < object.string_size; h++)
+    String rezult;
+    rezult.string_size = string_size + object.string_size;
+    char* time = new char[rezult.string_size + 1];
+    for (int h = 0; h < string_size; h++)
     {
-        element[string_size + h] = object.element[h];
+        time[h] = element[h];
     }
-    string_size += object.string_size;
-    return *this;
+    for (int h = string_size; h < rezult.string_size; h++)
+    {
+        time[h] = object.element[h - string_size];
+    }
+    time[rezult.string_size] = '\0';
+    return rezult;
 }
 
 std::ostream& operator<<(std::ofstream& output, String& object) //12
@@ -147,6 +154,7 @@ std::istream& operator>>(std::ifstream& input, String& object) //12
         string_size_time += 1;
     }
     rezult.string_size = string_size_time;
+    delete[] time;
     return input;
 }
 
