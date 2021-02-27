@@ -10,12 +10,17 @@ String::String() //1
 String::String(const String& object) //2
 {
     string_size = object.string_size;
-    element = object.element;
+    element = new char[string_size + 1];
+    for (int h = 0; h < object.string_size; h++)
+    {
+        element[h] = object.element[h];
+    }
+    element[string_size] = '\0';
 }
 
-int String::Size(char* object) //7
+size_t String::Size_help(const char* object) 
 {
-    int string_size = 0;
+    size_t string_size = 0;
     while (object[string_size] != '\0')
     {
         string_size += 1;
@@ -23,10 +28,15 @@ int String::Size(char* object) //7
     return string_size;
 }
 
-String::String(char* object) //3
+String::String(const char* object) //3
 {
-    element = object;
-    string_size = Size(object);
+    string_size = Size_help(object);
+    element = new char[string_size + 1];
+    for (int h = 0; h < string_size; h++)
+    {
+        element[h] = object[h];
+    }
+    element[string_size] = '\0';
 }
 
 String::~String() //4
@@ -38,27 +48,52 @@ String String::operator=(String& object) //5
 {
     if (this != &object) {
         delete[]element;
-        element = object.element;
         string_size = object.string_size;
+        element = new char[string_size + 1];
+        for (int h = 0; h < string_size; h++)
+        {
+            element[h] = object[h];
+        }
+        element[string_size] = '\0';
     }
     return *this;
 }
 
 bool String::operator==(String& object) //6
 {
-    int time = 0;
-    while (element[time] == object.element[time])
-    {
-        time += 1;
-    }
-    if (time == string_size - 1)
-    {
-        return true;
-    }
-    else
+    if (object.string_size > string_size)
     {
         return false;
     }
+    else
+    {
+        size_t time = 0;
+        for (int h = 0; h < string_size; h++)
+        {
+            if (element[h] == object.element[time])
+            {
+                time += 1;
+            }
+            else
+            {
+                time = 0;
+                if (element[h] == object.element[time])
+                {
+                    time += 1;
+                }
+            }
+            if (time == object.string_size)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+size_t String::Size() //7
+{
+    return string_size;
 }
 
 bool String::Find_help(String& object, int& h, int& time)
@@ -76,13 +111,13 @@ bool String::Find_help(String& object, int& h, int& time)
 int String::Find(String& object) //8
 {
     int time = 0;
-    int rezult = 0;
-    for (int h = 0; h <= (string_size - object.string_size); h++)
+    int rezult = -1;
+    for (int h = 0; h < string_size; h++)
     {
         if (Find_help(object, h, time) == true)
         {
             time += 1;
-            if (rezult == 0)
+            if (rezult == -1)
             {
                 rezult = h;
             }
@@ -111,7 +146,7 @@ int String::Find(String& object) //8
     return -1;
 }
 
-char String::operator[] (int& index) //10
+char String::operator[] (int index) //10
 {
     return element[index];
 }
@@ -133,7 +168,7 @@ String String::operator+(String& object) //11
     return rezult;
 }
 
-std::ostream& operator<<(std::ofstream& output, String& object) //12
+std::ostream& operator<<(std::ostream& output, String& object) //12
 {
     for (int h = 0; h < object.string_size; h++)
     {
@@ -142,23 +177,17 @@ std::ostream& operator<<(std::ofstream& output, String& object) //12
     return output;
 }
 
-std::istream& operator>>(std::ifstream& input, String& object) //12
+std::istream& operator>>(std::istream& input, String& object) //12
 {
     char* time = new char[256];
     input >> time;
-    String rezult;
-    rezult.element = time;
-    int string_size_time = 0;
-    while (object[string_size_time] != '\0')
-    {
-        string_size_time += 1;
-    }
-    rezult.string_size = string_size_time;
+    String rezult(time);
+    object = rezult;
     delete[] time;
     return input;
 }
 
-String String::Change(char& letter, char& needed_letter)
+String String::Change(char letter, char needed_letter) //9
 {
     for (int h = 0; h < string_size; h++)
     {
