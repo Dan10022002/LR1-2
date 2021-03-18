@@ -111,7 +111,7 @@ int String::Find(String& object) //8
             {
                 rezult = -1;
             }
-            if (Find_help(object, h, time) == true)
+            if (element[h] == object.element[time])
             {
                 time += 1;
                 rezult = h;
