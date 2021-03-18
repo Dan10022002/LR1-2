@@ -121,7 +121,7 @@ int String::Find(String& object) //8
             }
             if (rezult != 0)
             {
-                rezult = 0;
+                rezult = -1;
             }
             if (Find_help(object, h, time) == true)
             {
