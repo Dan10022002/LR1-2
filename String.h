@@ -16,7 +16,6 @@ public:
     bool operator== (String& object); //6
     size_t Size(); //7
     int Find(String& object); //8
-    bool Find_help(String& object, int& h, int& time);
     char operator[] (int index); //10
     String operator+(String& object); //11
     String Change(char letter, char needed_letter); //9
