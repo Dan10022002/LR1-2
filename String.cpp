@@ -61,33 +61,20 @@ String String::operator=(String& object) //5
 
 bool String::operator==(String& object) //6
 {
-    if (object.string_size > string_size)
+    if (object.string_size != string_size)
     {
         return false;
     }
     else
     {
-        size_t time = 0;
-        for (int h = 0; h < string_size; h++)
+        for (int h = 0; h < string_size; ++h)
         {
-            if (element[h] == object.element[time])
+            if (element[h] != object.element[h])
             {
-                time += 1;
-            }
-            else
-            {
-                time = 0;
-                if (element[h] == object.element[time])
-                {
-                    time += 1;
-                }
-            }
-            if (time == object.string_size)
-            {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }
 
