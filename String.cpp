@@ -83,25 +83,13 @@ size_t String::Size() //7
     return string_size;
 }
 
-bool String::Find_help(String& object, int& h, int& time)
-{
-    if (element[h] == object.element[time])
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 int String::Find(String& object) //8
 {
     int time = 0;
     int rezult = -1;
     for (int h = 0; h < string_size; h++)
     {
-        if (Find_help(object, h, time) == true)
+        if (element[h] == object.element[time])
         {
             time += 1;
             if (rezult == -1)
