@@ -107,7 +107,7 @@ int String::Find(String& object) //8
             {
                 time = 0;
             }
-            if (rezult != 0)
+            if (rezult != -1)
             {
                 rezult = -1;
             }
