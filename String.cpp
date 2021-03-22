@@ -106,15 +106,8 @@ int String::Find(String& object) //8
             if (time != 0)
             {
                 time = 0;
-            }
-            if (rezult != -1)
-            {
+                h = rezult + 1;
                 rezult = -1;
-            }
-            if (element[h] == object.element[time])
-            {
-                time += 1;
-                rezult = h;
             }
         }
     }
